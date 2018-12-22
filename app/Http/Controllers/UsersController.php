@@ -7,6 +7,18 @@ use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+//        except 方法来设定 指定动作 不使用 Auth 中间件进行过滤
+        $this->middleware('auth', [
+            'except' => ['create', 'store', 'show']
+        ]);
+        $this->middleware('guest', [
+            'only' => ['create']
+        ]);
+    }
+
+
     //用户注册表单
     public function create()
     {
@@ -43,17 +55,20 @@ class UsersController extends Controller
     //用户编辑页面
     public function edit(User $user)
     {
+        $this->authorize('update', $user);
         return view('users.edit', compact('user'));
     }
 
     //用户编辑更新
     public function update(User $user, Request $request)
     {
+        $this->authorize('update', $user);
+
         $this->validate($request, [
             'name' => 'required|max:50',
             'password' => 'required|confirmed|min:6'
         ]);
-        
+
         $data = [];
         $data['name'] = $request->name;
         if ($request->password) {
