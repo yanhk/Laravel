@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
@@ -87,5 +88,14 @@ class UsersController extends Controller
 //        $users = User::all();
         $users = User::paginate(10);
         return view('users.index', compact('users'));
+    }
+
+    //用户删除
+    public function destroy(User $user)
+    {
+        $this->authorize('destroy', $user);
+        $user->delete();
+        session()->flash('success', '成功删除用户！');
+        return back();
     }
 }
