@@ -11,7 +11,7 @@ class UsersController extends Controller
     {
 //        except 方法来设定 指定动作 不使用 Auth 中间件进行过滤
         $this->middleware('auth', [
-            'except' => ['create', 'store', 'show']
+            'except' => ['create', 'store', 'show', 'index']
         ]);
         $this->middleware('guest', [
             'only' => ['create']
@@ -79,5 +79,13 @@ class UsersController extends Controller
         session()->flash('success', '个人资料更新成功！');
 
         return redirect()->route('users.show', $user);
+    }
+
+    //用户列表
+    public function index()
+    {
+//        $users = User::all();
+        $users = User::paginate(10);
+        return view('users.index', compact('users'));
     }
 }
