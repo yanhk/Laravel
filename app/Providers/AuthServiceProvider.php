@@ -16,6 +16,8 @@ class AuthServiceProvider extends ServiceProvider
         'App\Model' => 'App\Policies\ModelPolicy',
         //为用户模型 User 指定授权策略 UserPolicy。
         \App\Models\User::class  => \App\Policies\UserPolicy::class,
+        //用户删除微博
+        \App\Models\Status::class  => \App\Policies\StatusPolicy::class,
     ];
 
     /**
