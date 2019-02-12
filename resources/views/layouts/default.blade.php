@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>@yield('title', 'Yanhk') - 下雪天</title>
+    <title>@yield('title', 'Yanhk') - 燕南天-BLOG</title>
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 </head>
 
