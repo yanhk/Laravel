@@ -61,13 +61,13 @@ class User extends Authenticatable
     //粉丝关系列表
     public function followers()
     {
-        return $this->belongsToMany(User::class, 'followers', 'user_id', 'follower_id');
+        return $this->belongsToMany(User::Class, 'followers', 'user_id', 'follower_id');
     }
 
     //用户关注人列表
     public function followings()
     {
-        return $this->belongsToMany(User::class, 'followers', 'follower_id', 'user_id');
+        return $this->belongsToMany(User::Class, 'followers', 'follower_id', 'user_id');
     }
 
     //关注
@@ -82,6 +82,7 @@ class User extends Authenticatable
     //取消关注
     public function unfollow($user_ids)
     {
+
         if(!is_array($user_ids)){
             $user_ids = compact('user_ids');
         }
@@ -91,6 +92,7 @@ class User extends Authenticatable
     //判断当前登录用户是否关注B
     public function isFollowing($user_id)
     {
-        return $this->followings->contains($user_id);
+//        dd($this->followings->contains($user_id));
+        return $this->followers->contains($user_id);
     }
 }
